@@ -1,0 +1,74 @@
+managed with additional save implementation in class ZBP_I_REASONCODEFOREWAYAC_S unique;
+strict;
+with draft;
+define behavior for ZI_ReasonCodeForEwayAc_S alias ReasonCodeForEwaAll
+draft table ZDT_EWAYCOD_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( features : instance )
+   TransportRequestID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit with additional implementation;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _ReasonCodeForEwayAc { create ( features : instance ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; }
+
+  side effects {
+    action SelectCustomizingTransptReq affects $self;
+  }
+  }
+
+define behavior for ZI_ReasonCodeForEwayAc alias ReasonCodeForEwayAc ##UNMAPPED_FIELD
+persistent table ZDT_EWAYCODE
+draft table ZDT_EWAYCODE_D
+lock dependent by _ReasonCodeForEwaAll
+authorization dependent by _ReasonCodeForEwaAll
+
+{
+  field ( mandatory : create )
+   Code;
+
+  field ( readonly )
+   SingletonID;
+
+  field ( readonly : update )
+   Code;
+
+  field ( notrigger )
+   SingletonID;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZDT_EWAYCODE
+  {
+    Code = CODE;
+    Description = DESCRIPTION;
+  }
+
+  association _ReasonCodeForEwaAll { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

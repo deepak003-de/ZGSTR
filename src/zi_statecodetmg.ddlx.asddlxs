@@ -1,0 +1,55 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'StateCodeTmg', 
+    typeNamePlural: 'StateCodeTmgs', 
+    title: {
+      type: #STANDARD, 
+      label: 'State Code TMG', 
+      value: 'Id'
+    }
+  }
+}
+annotate view ZI_StateCodeTmg with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_StateCodeTmg', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'State Code TMG', 
+    position: 1 
+  } ]
+  Id;
+  
+  @UI.identification: [ {
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Sapstatecode;
+  
+  @UI.identification: [ {
+    position: 3 
+  } ]
+  @UI.lineItem: [ {
+    position: 3 
+  } ]
+  Gststatecode;
+  
+  @UI.identification: [ {
+    position: 4 , 
+    label: 'Statename'
+  } ]
+  @UI.lineItem: [ {
+    position: 4 , 
+    label: 'Statename'
+  } ]
+  Statename;
+}

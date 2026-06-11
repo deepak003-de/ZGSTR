@@ -1,0 +1,150 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'PlantAddress', 
+    typeNamePlural: 'PlantAddresss', 
+    title: {
+      type: #STANDARD, 
+      label: 'Plant Address', 
+      value: 'Bukrs'
+    }
+  }
+}
+annotate view ZI_PlantAddress with
+{
+  @UI.hidden: true
+  ConfigDeprecationCode_Critlty;
+  
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_PlantAddress', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Plant Address', 
+    position: 1 
+  } ]
+  Bukrs;
+  
+  @UI.identification: [ {
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Werks;
+  
+  @UI.identification: [ {
+    position: 3 , 
+    label: 'Gstin'
+  } ]
+  @UI.lineItem: [ {
+    position: 3 , 
+    label: 'Gstin'
+  } ]
+  Gstin;
+  
+  @UI.identification: [ {
+    position: 4 , 
+    label: 'Legalname'
+  } ]
+  @UI.lineItem: [ {
+    position: 4 , 
+    label: 'Legalname'
+  } ]
+  Legalname;
+  
+  @UI.identification: [ {
+    position: 5 , 
+    label: 'Address1'
+  } ]
+  @UI.lineItem: [ {
+    position: 5 , 
+    label: 'Address1'
+  } ]
+  Address1;
+  
+  @UI.identification: [ {
+    position: 6 , 
+    label: 'Address2'
+  } ]
+  @UI.lineItem: [ {
+    position: 6 , 
+    label: 'Address2'
+  } ]
+  Address2;
+  
+  @UI.identification: [ {
+    position: 7 , 
+    label: 'City'
+  } ]
+  @UI.lineItem: [ {
+    position: 7 , 
+    label: 'City'
+  } ]
+  City;
+  
+  @UI.identification: [ {
+    position: 8 , 
+    label: 'Pincode'
+  } ]
+  @UI.lineItem: [ {
+    position: 8 , 
+    label: 'Pincode'
+  } ]
+  Pincode;
+  
+  @UI.identification: [ {
+    position: 9 , 
+    label: 'Statecode'
+  } ]
+  @UI.lineItem: [ {
+    position: 9 , 
+    label: 'Statecode'
+  } ]
+  Statecode;
+  
+  @UI.identification: [ {
+    position: 10 , 
+    label: 'Statecodedescription'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 , 
+    label: 'Statecodedescription'
+  } ]
+  Statecodedescription;
+  
+  @UI.identification: [ {
+    position: 11 , 
+    criticality: 'ConfigDeprecationCode_Critlty'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Deprecate', 
+    label: 'Deprecate'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Invalidate', 
+    label: 'Invalidate'
+  } ]
+  @UI.lineItem: [ {
+    position: 11 , 
+    criticality: 'ConfigDeprecationCode_Critlty'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Deprecate', 
+    label: 'Deprecate Selected Entry'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Invalidate', 
+    label: 'Invalidate Selected Entry'
+  } ]
+  ConfigDeprecationCode;
+}

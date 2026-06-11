@@ -1,0 +1,109 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'DtTmg', 
+    typeNamePlural: 'DtTmgs', 
+    title: {
+      type: #STANDARD, 
+      label: 'DT TMG', 
+      value: 'Bukrs'
+    }
+  }
+}
+annotate view ZI_DtTmg with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_DtTmg', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'DT TMG', 
+    position: 1 
+  } ]
+  Bukrs;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Gstin'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Gstin'
+  } ]
+  Gstin;
+  
+  @UI.identification: [ {
+    position: 3 , 
+    label: 'Legalname'
+  } ]
+  @UI.lineItem: [ {
+    position: 3 , 
+    label: 'Legalname'
+  } ]
+  Legalname;
+  
+  @UI.identification: [ {
+    position: 4 , 
+    label: 'Address1'
+  } ]
+  @UI.lineItem: [ {
+    position: 4 , 
+    label: 'Address1'
+  } ]
+  Address1;
+  
+  @UI.identification: [ {
+    position: 5 , 
+    label: 'Address2'
+  } ]
+  @UI.lineItem: [ {
+    position: 5 , 
+    label: 'Address2'
+  } ]
+  Address2;
+  
+  @UI.identification: [ {
+    position: 6 , 
+    label: 'City'
+  } ]
+  @UI.lineItem: [ {
+    position: 6 , 
+    label: 'City'
+  } ]
+  City;
+  
+  @UI.identification: [ {
+    position: 7 , 
+    label: 'Pincode'
+  } ]
+  @UI.lineItem: [ {
+    position: 7 , 
+    label: 'Pincode'
+  } ]
+  Pincode;
+  
+  @UI.identification: [ {
+    position: 8 , 
+    label: 'Statecode'
+  } ]
+  @UI.lineItem: [ {
+    position: 8 , 
+    label: 'Statecode'
+  } ]
+  Statecode;
+  
+  @UI.identification: [ {
+    position: 9 , 
+    label: 'Statecodedescription'
+  } ]
+  @UI.lineItem: [ {
+    position: 9 , 
+    label: 'Statecodedescription'
+  } ]
+  Statecodedescription;
+}

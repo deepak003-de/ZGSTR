@@ -1,0 +1,35 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "GST Condition",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD",
+    "targetMappingTitle": "GST Condition"
+  },
+  "ui5AppDetails": {
+    "appId": "zgstcondition"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_4154E73C982333B92C610B4635970D8643E6B776_TM",
+    "semanticObject": "zgst_condition",
+    "action": "Display",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_4154E73C982333B92C610B4635970D8643E6B776_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "GST Condition",
+        "subtitle": "Type Maintenace"
+      }
+    }
+  ]
+}

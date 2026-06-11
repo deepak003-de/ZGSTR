@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_EInvoicingMapping_S'
+define service ZUI_EINVOICINGMAPPING {
+  expose ZI_EINVOICINGMAPPING_S as EInvoicingMappinAll;
+  expose ZI_EINVOICINGMAPPING as EInvoicingMapping;
+}

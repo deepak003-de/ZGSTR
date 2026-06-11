@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_ModeOfTransport_S'
+define service ZUI_MODEOFTRANSPORT {
+  expose ZI_MODEOFTRANSPORT_S as ModeOfTransportAll;
+  expose ZI_MODEOFTRANSPORT as ModeOfTransport;
+}

@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'IrnCancellation', 
+    typeNamePlural: 'IrnCancellations', 
+    title: {
+      type: #STANDARD, 
+      label: 'IRN Cancellation', 
+      value: 'Code'
+    }
+  }
+}
+annotate view ZI_IrnCancellation with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_IrnCancellation', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'IRN Cancellation', 
+    position: 1 
+  } ]
+  Code;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Description'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Description'
+  } ]
+  Description;
+}

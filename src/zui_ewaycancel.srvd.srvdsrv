@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_Ewaycancel_S'
+define service ZUI_EWAYCANCEL {
+  expose ZI_EWAYCANCEL_S as EwaycancelAll;
+  expose ZI_EWAYCANCEL as Ewaycancel;
+}

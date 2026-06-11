@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Ewaycancel', 
+    typeNamePlural: 'Ewaycancels', 
+    title: {
+      type: #STANDARD, 
+      label: 'ewaycancel', 
+      value: 'Code'
+    }
+  }
+}
+annotate view ZI_Ewaycancel with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_Ewaycancel', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'ewaycancel', 
+    position: 1 
+  } ]
+  Code;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Description'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Description'
+  } ]
+  Description;
+}

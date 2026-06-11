@@ -1,0 +1,123 @@
+managed implementation in class zbp_r_einveway_f unique;
+strict;
+with draft;
+
+define behavior for ZR_EINVEWAY_F alias head
+with unmanaged save
+draft table zdr_einveway_f
+lock master
+total etag BillingDocumentDate
+authorization master ( instance )
+etag master BillingDocumentDate
+{
+
+  create;
+  update;
+  delete;
+
+  draft action ( features : instance ) Edit;
+  draft action Activate;
+  draft action Resume;
+  draft action Discard;
+  draft determine action Prepare;
+
+  field ( readonly ) BillingDocument, BillingDocumentDate, BillingDocumentType, BilltoParty, BilltoPartyAddress1,
+  BilltoPartyAddress2, BilltoPartyGSTIN, BilltoPartyLocation, BilltoPartyName, BilltoPartyPOS, BilltoPartyStateCodeDesc,
+  BilltoPartyPostalCode, BilltoPartyStateCode, Cattrxn, Doctype, Ewayind, Irnind, Referencefield,
+  ShiptoParty, ShiptoPartyAddress1, ShiptoPartyAddress2, ShiptoPartyGSTIN, ShiptoPartyLocation,
+  ShiptoPartyName, ShiptoPartyPOS, ShiptoPartyPostalCode, ShiptoPartyStateCode, ShiptoPartyStateCodeDesc, Status, Criticality, Progress, Total,
+  ackno,
+  ackdate,
+  irn,
+  irstatus,
+  irncanceldate,
+  signedinv,
+  signedqrcode,
+  eway,
+  ewaycanceldate,
+  urlirn,
+  irnflag,
+  ewayflag,
+  irncancflag,
+  ewaycancflag,
+  irnmessage,
+  cirnmessage,
+  ewaymessage,
+  cewaymessage,
+  ewayvaliditydate,
+  ewaydate,
+  printflag,
+  OnlyEwayFlag,
+  printewayflag,
+  urleway,
+  Supplytext,
+  Subtype;
+
+
+  action ( features : instance ) EWAY result [1] $self;
+  action ( features : instance ) Einvoice result [1] $self;
+  action ( features : instance ) CEWAY result [1] $self;
+  action ( features : instance ) CEINV result [1] $self;
+  action ( features : instance ) TRAEWAY result [1] $self;
+  action ( features : instance ) DATEWAY result [1] $self;
+  action ( features : instance ) VEHEWAY result [1] $self;
+
+  side effects
+  {
+    action EWAY affects messages;
+    action Einvoice affects messages;
+    action CEWAY affects messages;
+    action CEINV affects messages;
+    action TRAEWAY affects messages;
+    action DATEWAY affects messages;
+    action VEHEWAY affects messages;
+  }
+
+  determination savedata on save { create; update; }
+  association _item;
+  association _error;
+
+
+
+}
+
+define behavior for ZR_EINVEWAY_FI alias item
+with unmanaged save
+draft table zdr_einveway_fi
+lock dependent by _Head
+authorization dependent by _Head
+{
+
+  update;
+  delete;
+
+  field ( readonly ) BillingDocument,
+  SlNo, BusinessPlace, CompanyCode, IN_GSTIdentificationNumber, Plant,
+  Product, ProductName, ConsumptionTaxCtrlCode, BillingQuantity, BillingQuantityUnit,
+  TransactionCurrency, NetAmount, TaxAmount, Sapuom, Gstuom, Description, Werks,
+  Portcode, Statecode, Portname, Distance, Buyerpincode, PlantGSTIN,
+  PlantLegalname, PlantAddress1, PlantAddress2, PlantCity, PlantPincode, PlantStatecode,
+  PlantStatecodedescription, MaterialValue, MaterialBaseValue, DiscountValue, RoundOffValue,
+  CessBaseValue, CessValue, SGSTRate, SGSTValue, CGSTRate, CGSTValue, IGSTRate, IGSTValue,
+  TotalGSTRate, TotalGSTValue;
+
+  association _Head;
+
+}
+
+define behavior for ZR_ERRORLOG alias error
+with unmanaged save
+draft table zdr_errorlog
+lock dependent by _Head
+authorization dependent by _Head
+{
+
+  update;
+  delete;
+
+  field ( readonly ) Billdoc, Action, Docdate, Doctype, Errorcode, Item, Message, Logtime, Logdate;
+
+
+  association _Head;
+
+}

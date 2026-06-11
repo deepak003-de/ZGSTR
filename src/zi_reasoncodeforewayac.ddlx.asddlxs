@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'ReasonCodeForEwayAc', 
+    typeNamePlural: 'ReasonCodeForEwayAcs', 
+    title: {
+      type: #STANDARD, 
+      label: 'Reason Code for EWay Action', 
+      value: 'Code'
+    }
+  }
+}
+annotate view ZI_ReasonCodeForEwayAc with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_ReasonCodeForEwayAc', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Reason Code for EWay Action', 
+    position: 1 
+  } ]
+  Code;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Description'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Description'
+  } ]
+  Description;
+}

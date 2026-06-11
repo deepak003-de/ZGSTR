@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_GstrUom_S'
+define service ZUI_GSTRUOM {
+  expose ZI_GSTRUOM_S as GstrUomAll;
+  expose ZI_GSTRUOM as GstrUom;
+}

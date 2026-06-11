@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_IrnCancellation_S'
+define service ZUI_IRNCANCELLATION {
+  expose ZI_IRNCANCELLATION_S as IrnCancellationAll;
+  expose ZI_IRNCANCELLATION as IrnCancellation;
+}

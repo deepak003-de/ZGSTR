@@ -1,0 +1,96 @@
+managed with additional save implementation in class ZBP_I_EINVOICINGMAPPING_S unique;
+strict;
+with draft;
+define behavior for ZI_EInvoicingMapping_S alias EInvoicingMappinAll
+draft table ZDT_GSTRMAP_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( features : instance )
+   TransportRequestID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit with additional implementation;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _EInvoicingMapping { create ( features : instance ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; }
+
+  side effects {
+    action SelectCustomizingTransptReq affects $self;
+  }
+  }
+
+define behavior for ZI_EInvoicingMapping alias EInvoicingMapping ##UNMAPPED_FIELD
+persistent table ZDT_GSTRMAP
+draft table ZDT_GSTRMAP_D
+etag master LocalLastChangedAt
+lock dependent by _EInvoicingMappinAll
+authorization dependent by _EInvoicingMappinAll
+
+{
+  field ( mandatory : create )
+   Blart,
+   Fkart;
+
+  field ( readonly )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt,
+   ConfigDeprecationCode,
+   ConfigDeprecationCode_Critlty;
+
+  field ( readonly : update )
+   Blart,
+   Fkart;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+
+  update( features : global );
+  delete( features : instance );
+
+  action ( features : instance ) Deprecate result [1] $self;
+  action ( features : instance ) Invalidate result [1] $self;
+
+  mapping for ZDT_GSTRMAP
+  {
+    Blart = BLART;
+    Fkart = FKART;
+    Doctype = DOCTYPE;
+    Supplytext = SUPPLYTEXT;
+    Subtype = SUBTYPE;
+    Irnind = IRNIND;
+    Ewayind = EWAYIND;
+    Cattrxn = CATTRXN;
+    Referencefield = REFERENCEFIELD;
+    ConfigDeprecationCode = CONFIGDEPRECATIONCODE;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _EInvoicingMappinAll { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

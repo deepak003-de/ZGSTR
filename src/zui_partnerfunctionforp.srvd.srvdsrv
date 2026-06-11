@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_PartnerFunctionForP_S'
+define service ZUI_PARTNERFUNCTIONFORP {
+  expose ZI_PARTNERFUNCTIONFORP_S as PartnerFunctionFAll;
+  expose ZI_PARTNERFUNCTIONFORP as PartnerFunctionForP;
+}

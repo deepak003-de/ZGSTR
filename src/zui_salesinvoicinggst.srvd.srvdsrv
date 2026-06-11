@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_SalesInvoicingGst_S'
+define service ZUI_SALESINVOICINGGST {
+  expose ZI_SALESINVOICINGGST_S as SalesInvoicingGsAll;
+  expose ZI_SALESINVOICINGGST as SalesInvoicingGst;
+}

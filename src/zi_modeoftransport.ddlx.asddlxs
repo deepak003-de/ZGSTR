@@ -1,0 +1,49 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'ModeOfTransport', 
+    typeNamePlural: 'ModeOfTransports', 
+    title: {
+      type: #STANDARD, 
+      label: 'Mode of Transport', 
+      value: 'Id'
+    }
+  }
+}
+annotate view ZI_ModeOfTransport with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_ModeOfTransport', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Mode of Transport', 
+    position: 1 
+  } ]
+  Id;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Mot'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Mot'
+  } ]
+  Mot;
+  
+  @UI.identification: [ {
+    position: 3 , 
+    label: 'Motdesc'
+  } ]
+  @UI.lineItem: [ {
+    position: 3 , 
+    label: 'Motdesc'
+  } ]
+  Motdesc;
+}

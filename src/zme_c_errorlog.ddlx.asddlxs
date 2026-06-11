@@ -1,0 +1,81 @@
+@Metadata.layer: #CUSTOMER
+
+@UI: {
+  presentationVariant: [{ sortOrder: [{ by: 'Errorcode', direction:  #ASC }],
+                          visualizations: [{type: #AS_LINEITEM}],
+                          text: 'Error Code' }]
+     }
+
+@UI: { headerInfo: { title: { type: #STANDARD, label: 'Error Details', value: 'Errorcode' } } }
+annotate entity ZC_ERRORLOG with
+
+{
+  @UI.facet: [
+    {
+    id: 'GeneralI',
+    isSummary: true,
+    label: 'Item',
+    type: #COLLECTION,
+    purpose: #STANDARD
+    },
+
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData1',
+    parentId: 'GeneralI',
+    label: 'Erro Details',
+    id: 'GeneralData1'
+    }
+                  ]
+  @UI: {
+           lineItem: [ { position: 10} ],
+           identification: [{position: 10 }],
+           fieldGroup: [{qualifier: 'GeneralData1',position: 10,importance: #HIGH }]   }
+  Billdoc;
+  @UI: {
+         lineItem: [ { position: 11} ],
+         identification: [{position: 11 }],
+         fieldGroup: [{qualifier: 'GeneralData1',position: 11,importance: #HIGH }]  }
+  Item;
+  @UI: {
+         lineItem: [ { position: 12} ],
+         identification: [{position: 12 }],
+         fieldGroup: [{qualifier: 'GeneralData1',position: 12,importance: #HIGH }] }
+  Errorcode;
+  @UI: {
+         lineItem: [ { position: 13} ],
+         identification: [{position: 13 }],
+         fieldGroup: [{qualifier: 'GeneralData1',position: 13,importance: #HIGH }] }
+  Message;
+  @UI: {
+         lineItem: [ { position: 14} ],
+         identification: [{position: 14 }],
+         fieldGroup: [{qualifier: 'GeneralData1',position: 13,importance: #HIGH }] }
+  docdate;
+  @UI: {
+       lineItem: [ { position: 15} ],
+       identification: [{position: 15 }],
+       fieldGroup: [{qualifier: 'GeneralData1',position: 15,importance: #HIGH }] }
+  doctype;
+  @UI: {
+       lineItem: [ { position: 16} ],
+       identification: [{position: 16 }],
+       fieldGroup: [{qualifier: 'GeneralData1',position: 16,importance: #HIGH }] }
+  logdate;
+  @UI: {
+       lineItem: [ { position: 17} ],
+       identification: [{position: 17 }],
+       fieldGroup: [{qualifier: 'GeneralData1',position: 17,importance: #HIGH }] }
+  logtime;
+  @UI: {
+       lineItem: [ { position: 18} ],
+       identification: [{position: 18 }],
+       fieldGroup: [{qualifier: 'GeneralData1',position: 18,importance: #HIGH }] }
+  action;
+  @UI: {
+       lineItem: [ { position: 19} ],
+       identification: [{position: 19 }],
+       fieldGroup: [{qualifier: 'GeneralData1',position: 19,importance: #HIGH }] }
+  errorby;
+
+}

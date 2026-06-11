@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_TmgForVehicleType_S'
+define service ZUI_TMGFORVEHICLETYPE {
+  expose ZI_TMGFORVEHICLETYPE_S as TmgForVehicleTypAll;
+  expose ZI_TMGFORVEHICLETYPE as TmgForVehicleType;
+}

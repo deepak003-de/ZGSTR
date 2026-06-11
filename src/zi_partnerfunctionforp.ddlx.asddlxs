@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'PartnerFunctionForP', 
+    typeNamePlural: 'PartnerFunctionForPs', 
+    title: {
+      type: #STANDARD, 
+      label: 'Partner Function for Port Code', 
+      value: 'Id'
+    }
+  }
+}
+annotate view ZI_PartnerFunctionForP with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_PartnerFunctionForP', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Partner Function for Port Code', 
+    position: 1 
+  } ]
+  Id;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Parnterfunction'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Parnterfunction'
+  } ]
+  Parnterfunction;
+}

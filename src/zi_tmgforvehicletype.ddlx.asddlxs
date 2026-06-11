@@ -1,0 +1,49 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'TmgForVehicleType', 
+    typeNamePlural: 'TmgForVehicleTypes', 
+    title: {
+      type: #STANDARD, 
+      label: 'TMG for Vehicle Type', 
+      value: 'Id'
+    }
+  }
+}
+annotate view ZI_TmgForVehicleType with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_TmgForVehicleType', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'TMG for Vehicle Type', 
+    position: 1 
+  } ]
+  Id;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'Vehicletype'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'Vehicletype'
+  } ]
+  Vehicletype;
+  
+  @UI.identification: [ {
+    position: 3 , 
+    label: 'Vehicletypedesc'
+  } ]
+  @UI.lineItem: [ {
+    position: 3 , 
+    label: 'Vehicletypedesc'
+  } ]
+  Vehicletypedesc;
+}

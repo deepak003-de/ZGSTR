@@ -1,0 +1,73 @@
+managed with additional save implementation in class ZBP_I_MODEOFTRANSPORT_S unique;
+strict;
+with draft;
+define behavior for ZI_ModeOfTransport_S alias ModeOfTransportAll
+draft table ZDT_MOT_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( features : instance )
+   TransportRequestID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit with additional implementation;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _ModeOfTransport { create ( features : instance ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; }
+
+  side effects {
+    action SelectCustomizingTransptReq affects $self;
+  }
+  }
+
+define behavior for ZI_ModeOfTransport alias ModeOfTransport ##UNMAPPED_FIELD
+persistent table ZDT_MOT
+draft table ZDT_MOT_D
+lock dependent by _ModeOfTransportAll
+authorization dependent by _ModeOfTransportAll
+
+{
+  field ( readonly )
+   SingletonID,
+   Id;
+
+  field ( numbering : managed )
+   Id;
+
+  field ( notrigger )
+   SingletonID;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZDT_MOT
+  {
+    Id = ID;
+    Mot = MOT;
+    Motdesc = MOTDESC;
+  }
+
+  association _ModeOfTransportAll { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

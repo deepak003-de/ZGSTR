@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_StateCodeTmg_S'
+define service ZUI_STATECODETMG {
+  expose ZI_STATECODETMG_S as StateCodeTmgAll;
+  expose ZI_STATECODETMG as StateCodeTmg;
+}

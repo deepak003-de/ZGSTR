@@ -1,0 +1,93 @@
+managed with additional save implementation in class ZBP_I_PORTCODE_S unique;
+strict;
+with draft;
+define behavior for ZI_PortCode_S alias PortCodeAll
+draft table ZDT_PORTCOD_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( features : instance )
+   TransportRequestID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit with additional implementation;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _PortCode { create ( features : instance ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; }
+
+  side effects {
+    action SelectCustomizingTransptReq affects $self;
+  }
+  }
+
+define behavior for ZI_PortCode alias PortCode ##UNMAPPED_FIELD
+persistent table ZDT_PORTCODE
+draft table ZDT_PORTCODE_D
+etag master LocalLastChangedAt
+lock dependent by _PortCodeAll
+authorization dependent by _PortCodeAll
+
+{
+  field ( mandatory : create )
+   Werks,
+   Portcode;
+
+  field ( readonly )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt,
+   ConfigDeprecationCode,
+   ConfigDeprecationCode_Critlty;
+
+  field ( readonly : update )
+   Werks,
+   Portcode;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+
+  update( features : global );
+  delete( features : instance );
+
+  action ( features : instance ) Deprecate result [1] $self;
+  action ( features : instance ) Invalidate result [1] $self;
+
+  mapping for ZDT_PORTCODE
+  {
+    Werks = WERKS;
+    Portcode = PORTCODE;
+    Statecode = STATECODE;
+    Portname = PORTNAME;
+    Distance = DISTANCE;
+    Buyerpincode = BUYERPINCODE;
+    ConfigDeprecationCode = CONFIGDEPRECATIONCODE;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _PortCodeAll { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

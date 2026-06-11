@@ -1,0 +1,917 @@
+@Metadata.layer: #CUSTOMER
+
+@UI: {
+  presentationVariant: [{ sortOrder: [{ by: 'BillingDocumentDate', direction:  #DESC },
+                                      { by: 'BillingDocument', direction:  #DESC }
+                                     ],
+                          visualizations: [{type: #AS_LINEITEM}],
+                          text: 'Billing Documents' }]
+     }
+
+
+@UI: { headerInfo: { title: { type: #STANDARD, label: 'Billing Document', value: 'BillingDocument' } } }
+
+annotate view ZC_EINVEWAY_F with
+{
+
+  @UI.facet:
+    [
+
+    {
+    id: 'GeneralData',
+    isSummary: true,
+    label: 'Billing Document',
+    type: #COLLECTION
+    },
+
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData1',
+    parentId: 'GeneralData',
+    label: 'Billing Document',
+    position: 10,
+    id: 'GeneralData1'
+    },
+
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData2',
+    parentId: 'GeneralData',
+    position: 30,
+    label: 'Basic Data',
+    id: 'GeneralData2'
+    },
+
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData3',
+    parentId: 'GeneralData',
+    position: 40,
+    label: 'Bill To Party',
+    id: 'GeneralData3'
+    },
+
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData4',
+    parentId: 'GeneralData',
+    position: 50,
+    label: 'Ship to Party',
+    id: 'GeneralData4'
+    },
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData5',
+    parentId: 'GeneralData',
+    position: 60,
+    label: 'eWay Details(Part-B)',
+    id: 'GeneralData5'
+    },
+    {
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'GeneralData7',
+    parentId: 'GeneralData',
+    position: 65,
+    label: 'IRN & eWay Details',
+    id: 'GeneralData7'
+    },
+  //     {
+  //    type: #FIELDGROUP_REFERENCE,
+  //    targetQualifier: 'GeneralData6',
+  //    parentId: 'GeneralData',
+  //    position: 70,
+  //    label: 'eWay & EInv Response Message',
+  //    id: 'GeneralData6'
+  //    },
+
+    {
+    id: 'Item1',
+    label: 'Billing Doc. Items',
+    type: #LINEITEM_REFERENCE,
+    targetElement: '_item',
+    position: 70
+    },
+    {
+    id: 'Item2',
+    label: 'Error Details',
+    type: #LINEITEM_REFERENCE,
+    targetElement: '_error',
+    position: 80
+    }
+    //////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////
+
+
+    ]
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Header
+
+
+  @UI: {
+          lineItem: [ { position: 10}],
+          identification: [{position: 10 }, { type: #FOR_ACTION, dataAction: 'EWAY', label: 'eWay Bill', iconUrl: 'sap-icon://close-command-field' }],
+          selectionField: [{ position: 10 }],
+          fieldGroup: [{qualifier: 'GeneralData1',position: 10,importance: #HIGH }]
+  }
+  BillingDocument;
+
+  @UI: {
+          lineItem: [ { position: 20}],
+          identification: [{position: 20}, { type: #FOR_ACTION, dataAction: 'Einvoice', label: 'Einvoice', iconUrl: 'sap-icon://close-command-field' } ],
+          fieldGroup: [{qualifier: 'GeneralData1',position: 20,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  BillingDocumentType;
+
+
+  @UI: {
+          lineItem: [ { position: 30} ],
+          identification: [{position: 30 },
+                            { type: #FOR_ACTION, dataAction: 'CEWAY', label: 'Cancel eWay Bill', iconUrl: 'sap-icon://close-command-field' }],
+          selectionField: [{ position: 20 }],
+          fieldGroup: [{qualifier: 'GeneralData1',position: 30,importance: #HIGH }]
+  }
+  BillingDocumentDate;
+
+  @UI.hidden: true
+  Total;
+  @UI.lineItem: [{ position: 31, type: #AS_DATAPOINT }]
+  @UI.dataPoint: { visualization: #PROGRESS ,
+                   targetValueElement: 'Total',
+                   criticality: 'Criticality',
+                   criticalityRepresentation: #WITHOUT_ICON }
+  Progress;
+  @UI.lineItem: [ { position: 32 }, { criticality: 'Criticality' } ]
+  @UI.identification: [  { position: 32 } ]
+  @UI.fieldGroup: [ { position: 22,  qualifier: 'GeneralData1', importance: #HIGH } ]
+  Status;
+  @EndUserText.label: 'Criticality'
+  Criticality;
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Basic Details
+  @UI: {
+          lineItem: [ { position: 40} ],
+          identification: [{position: 40 },
+                            { type: #FOR_ACTION, dataAction: 'CEINV', label: 'Cancel Einvoice', iconUrl: 'sap-icon://close-command-field' }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 10,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  Doctype;
+
+  @UI: {
+          lineItem: [ { position: 50} ],
+          identification: [{position: 50 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 20,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  Supplytext;
+
+  @UI: {
+          lineItem: [ { position: 60} ],
+          identification: [{position: 60 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 30,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  Subtype;
+
+  @UI: {
+          lineItem: [ { position: 70} ],
+          identification: [{position: 70 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 40,importance: #HIGH }]
+  }
+  Irnind;
+
+  @UI: {
+          lineItem: [ { position: 80} ],
+          identification: [{position: 80 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 50,importance: #HIGH }]
+  }
+  Ewayind;
+
+  @UI: {
+          lineItem: [ { position: 90} ],
+          identification: [{position: 90 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 60,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  Cattrxn;
+
+  @UI: {
+          lineItem: [ { position: 100} ],
+          identification: [{position: 100 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 70,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  Referencefield;
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Bill To Party
+  @UI: {
+          lineItem: [ { position: 110} ],
+          identification: [{position: 110 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 10,importance: #HIGH }]
+  }
+  BilltoParty;
+
+  @UI: {
+          lineItem: [ { position: 120} ],
+          identification: [{position: 120 }],
+          selectionField: [{ position: 30 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 20,importance: #HIGH }]
+  }
+  BilltoPartyGSTIN;
+
+  @UI: {
+          lineItem: [ { position: 130} ],
+          identification: [{position: 130 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 30,importance: #HIGH }]
+  }
+  BilltoPartyName;
+
+  @UI: {
+          //lineItem: [ { position: 140} ],
+          identification: [{position: 140 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 40,importance: #HIGH }]
+  }
+  BilltoPartyAddress1;
+
+  @UI: {
+          //lineItem: [ { position: 150} ],
+          identification: [{position: 150 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 50,importance: #HIGH }]
+  }
+  BilltoPartyAddress2;
+
+  @UI: {
+          //lineItem: [ { position: 160} ],
+          identification: [{position: 160 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 60,importance: #HIGH }]
+  }
+  BilltoPartyPOS;
+
+  @UI: {
+          //lineItem: [ { position: 170} ],
+          identification: [{position: 170 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 70,importance: #HIGH }]
+  }
+  BilltoPartyLocation;
+
+  @UI: {
+          //lineItem: [ { position: 180} ],
+          identification: [{position: 180 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 80,importance: #HIGH }]
+  }
+  BilltoPartyPostalCode;
+
+  @UI: {
+          //lineItem: [ { position: 190} ],
+          identification: [{position: 190 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 90,importance: #HIGH }]
+  }
+  BilltoPartyStateCode;
+
+  @UI: {
+          //lineItem: [ { position: 200} ],
+          identification: [{position: 200 }],
+          fieldGroup: [{qualifier: 'GeneralData3',position: 100,importance: #HIGH }]
+  }
+  BilltoPartyStateCodeDesc;
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Ship To Party
+  @UI: {
+          lineItem: [ { position: 200} ],
+          identification: [{position: 200 }],
+          selectionField: [{ position: 40 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 10,importance: #HIGH }]
+  }
+  ShiptoParty;
+
+  @UI: {
+          lineItem: [ { position: 210} ],
+          identification: [{position: 210 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 20,importance: #HIGH }]
+  }
+  ShiptoPartyGSTIN;
+
+  @UI: {
+          lineItem: [ { position: 220} ],
+          identification: [{position: 220 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 30,importance: #HIGH }]
+  }
+  ShiptoPartyName;
+
+  @UI: {
+          //lineItem: [ { position: 230} ],
+          identification: [{position: 230 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 40,importance: #HIGH }]
+  }
+  ShiptoPartyAddress1;
+
+  @UI: {
+          //lineItem: [ { position: 240} ],
+          identification: [{position: 240 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 50,importance: #HIGH }]
+  }
+  ShiptoPartyAddress2;
+
+  @UI: {
+          //lineItem: [ { position: 250} ],
+          identification: [{position: 250 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 60,importance: #HIGH }]
+  }
+  ShiptoPartyPOS;
+
+  @UI: {
+          //lineItem: [ { position: 260} ],
+          identification: [{position: 260 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 70,importance: #HIGH }]
+  }
+  ShiptoPartyLocation;
+
+  @UI: {
+          //lineItem: [ { position: 270} ],
+          identification: [{position: 270 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 80,importance: #HIGH }]
+  }
+  ShiptoPartyPostalCode;
+
+  @UI: {
+          //lineItem: [ { position: 280} ],
+          identification: [{position: 280 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 90,importance: #HIGH }]
+  }
+  ShiptoPartyStateCode;
+
+  @UI: {
+          //lineItem: [ { position: 290} ],
+          identification: [{position: 290 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 100,importance: #HIGH }]
+  }
+  ShiptoPartyStateCodeDesc;
+
+
+  @UI: {
+            lineItem: [ { position: 291} ],
+            identification: [{position: 291 }],
+            fieldGroup: [{qualifier: 'GeneralData7',position: 101,importance: #HIGH }]}
+  @EndUserText.label: 'Acknowledgement Number'
+  ackno;
+  @UI: {
+          lineItem: [ { position: 292} ],
+          identification: [{position: 292 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 102,importance: #HIGH }]}
+  @EndUserText.label: 'Acknowledgement Date'
+  ackdate;
+  @UI: {
+          lineItem: [ { position: 293} ],
+          identification: [{position: 293 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 103,importance: #HIGH }]}
+  @EndUserText.label: 'IRN'
+  irn;
+  @UI: {
+          lineItem: [ { position: 294} ],
+          identification: [{position: 294 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 104,importance: #HIGH }]}
+  @UI.hidden: true
+  irstatus;
+  @UI: {
+          lineItem: [ { position: 295} ],
+          identification: [{position: 295,
+                             type: #FOR_ACTION, dataAction: 'TRAEWAY', label: 'Transporter Update', iconUrl: 'sap-icon://close-command-field' }  ],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 105,importance: #HIGH }]}
+  //  @UI: {
+  //            lineItem: [ { position: 295} ],
+  //            identification: [{position: 295 }],
+  //            fieldGroup: [{qualifier: 'GeneralData7',position: 105,importance: #HIGH }]}
+  //  @EndUserText.label: 'IRN Cancel Date'
+  irncanceldate;
+  @UI: {
+          lineItem: [ { position: 296} ],
+          identification: [{position: 296,
+                             type: #FOR_ACTION, dataAction: 'DATEWAY', label: 'Extend eWay Bill' , iconUrl: 'sap-icon://close-command-field'  }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 106,importance: #HIGH }]}
+  //  @UI: {
+  //            //lineItem: [ { position: 296} ],
+  //            identification: [{position: 296 }],
+  //            fieldGroup: [{qualifier: 'GeneralData7',position: 106,importance: #HIGH }]}
+  @EndUserText.label: 'Signed Invoice'
+  signedinv;
+  @UI: {
+          lineItem: [ { position: 297} ],
+          identification: [{position: 297,
+                             type: #FOR_ACTION, dataAction: 'VEHEWAY', label: 'Vehicle Update', iconUrl: 'sap-icon://close-command-field'  }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 107,importance: #HIGH }]}
+  //  @UI: {
+  //            //lineItem: [ { position: 297} ],
+  //            identification: [{position: 297 }],
+  //            fieldGroup: [{qualifier: 'GeneralData7',position: 107,importance: #HIGH }]}
+  //  @EndUserText.label: 'Signed QR Code'
+  signedqrcode;
+  //  @UI: {
+  //          lineItem: [ { position: 298} ],
+  //          identification: [{position: 298 ,
+  //                             type: #FOR_ACTION, dataAction: 'MULTIVEHEWAY', label: 'Multi Vehicle Update', iconUrl: 'sap-icon://close-command-field'  }],
+  //          fieldGroup: [{qualifier: 'GeneralData7',position: 108,importance: #HIGH }]}
+  @UI: {
+            lineItem: [ { position: 298} ],
+            identification: [{position: 298 }],
+            fieldGroup: [{qualifier: 'GeneralData7',position: 108,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Bill Number'
+  eway;
+
+  @UI: {
+          lineItem: [ { position: 299} ],
+          identification: [{position: 299 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 299,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Date'
+  ewaydate;
+
+  @UI: {
+          lineItem: [ { position: 300} ],
+          identification: [{position: 300 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 300,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Validity Date'
+  ewayvaliditydate;
+
+  //  @UI: {
+  //          lineItem: [ { position: 299} ],
+  //          identification: [{position: 299 ,
+  //                             type: #FOR_ACTION, dataAction: 'MULTIVEHADD', label: 'Multi Vehicle Add', iconUrl: 'sap-icon://close-command-field'  }],
+  //          fieldGroup: [{qualifier: 'GeneralData7',position: 109,importance: #HIGH }]}
+  @UI: {
+          lineItem: [ { position: 309} ],
+          identification: [{position: 309 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 309,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Bill Cancel Date'
+  ewaycanceldate;
+
+  //  @UI.lineItem: [{ type: #WITH_URL,  url: 'urlirn' }]
+  @UI.hidden: true
+  urlirn;
+  @UI: {
+         lineItem: [ { position: 300 } ],
+         identification: [{position: 300 } ],
+         fieldGroup: [{qualifier: 'GeneralData7',position: 300,importance: #HIGH }]}
+  @UI.lineItem: [{ type: #WITH_URL,  url: 'urlirn' }]
+  @UI.hidden: true
+  printflag;
+  //  @UI: {
+  //          lineItem: [ { position: 301} ],
+  //          identification: [{position: 301,
+  //                             type: #FOR_ACTION, dataAction: 'MOVEUPD', label: 'Update Movement' , iconUrl: 'sap-icon://close-command-field'   }],
+  //          fieldGroup: [{qualifier: 'GeneralData7',position: 301,importance: #HIGH }]}
+  @UI: {
+  lineItem: [ { position: 301 } ],
+  identification: [{position: 301 } ],
+  fieldGroup: [{qualifier: 'GeneralData7',position: 301,importance: #HIGH }]}
+  @EndUserText.label: 'IRN Flag'
+  @UI.hidden: true
+  irnflag;
+  @UI: {
+          lineItem: [ { position: 302} ],
+          identification: [{position: 302 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 302,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Flag'
+  @UI.hidden: true
+  ewayflag;
+  @UI: {
+          lineItem: [ { position: 303} ],
+          identification: [{position: 303 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 303,importance: #HIGH }]}
+  @EndUserText.label: 'IRN Cancel Flag'
+  @UI.hidden: true
+  irncancflag;
+  //  @UI: {
+  //          lineItem: [ { position: 304,
+  //                             type: #FOR_ACTION, dataAction: 'CONSEWAY', label: 'Consolidate EWB', iconUrl: 'sap-icon://close-command-field'  } ],
+  //          identification: [{position: 304 }],
+  //          fieldGroup: [{qualifier: 'GeneralData7',position: 304,importance: #HIGH }]}
+  @UI: {
+           lineItem: [ { position: 304 } ],
+           identification: [{position: 304 } ],
+           fieldGroup: [{qualifier: 'GeneralData7',position: 304,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Cancel Flag'
+  @UI.hidden: true
+  ewaycancflag;
+  @UI: {
+         // lineItem: [ { position: 305} ],
+          identification: [{position: 305 }],
+          fieldGroup: [{qualifier: 'GeneralData6',position: 305,importance: #HIGH }]}
+  @EndUserText.label: 'IRN Message'
+  irnmessage;
+  @UI: {
+          //lineItem: [ { position: 306} ],
+          identification: [{position: 306 }],
+          fieldGroup: [{qualifier: 'GeneralData6',position: 306,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Message'
+  ewaymessage;
+  @UI: {
+         //lineItem: [ { position: 307} ],
+          identification: [{position: 307 }],
+          fieldGroup: [{qualifier: 'GeneralData6',position: 307,importance: #HIGH }]}
+  @EndUserText.label: 'IRN Cancel Message'
+  cirnmessage;
+  @UI: {
+         // lineItem: [ { position: 308} ],
+          identification: [{position: 308 }],
+          fieldGroup: [{qualifier: 'GeneralData6',position: 308,importance: #HIGH }]}
+  @EndUserText.label: 'eWay Cancel Flag'
+  cewaymessage;
+
+
+  @UI: {
+         //lineItem: [ { position: 401} ],
+         identification: [{position: 401 }],
+         selectionField: [{ position: 100 }],
+         fieldGroup: [{qualifier: 'GeneralData7',position: 401,importance: #HIGH }]}
+  @UI.hidden:true
+  OnlyEwayFlag;
+  @UI: {
+          lineItem: [ { position: 402} ],
+          identification: [{position: 402 }],
+          fieldGroup: [{qualifier: 'GeneralData7',position: 402,importance: #HIGH }]}
+  @UI.lineItem: [{ type: #WITH_URL,  url: 'urleway' }]
+  @UI.hidden: true
+  printewayflag;
+  @UI.hidden: true
+  urleway;
+  @UI: {
+            lineItem: [ { position: 403} ],
+            identification: [{position: 403 }],
+            fieldGroup: [{qualifier: 'GeneralData5',position: 403,importance: #HIGH }]}
+  @UI.hidden: true
+  transportercode;
+  @UI: {
+          lineItem: [ { position: 404} ],
+          identification: [{position: 404 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 404,importance: #HIGH }]}
+  transportername;
+  @UI: {
+          lineItem: [ { position: 405} ],
+          identification: [{position: 405 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 405,importance: #HIGH }]}
+  trasnportergstin;
+  @UI: {
+          lineItem: [ { position: 406} ],
+          identification: [{position: 406 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  vehiclenumber;
+  @UI: {
+            lineItem: [ { position: 406} ],
+            identification: [{position: 406 }],
+            fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Distance'
+ // @UI.hidden: true
+  distance;
+//  @UI: {
+//            lineItem: [ { position: 406} ],
+//            identification: [{position: 406 , label: 'Distance in KM'}],
+//            fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+//  @EndUserText.label: 'Distance'
+//  KMdistance;
+  @UI: {
+          lineItem: [ { position: 406} ],
+          identification: [{position: 406 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Eway Validity Upto(Modification)'
+  extendedvaliditydate;
+  @UI: {
+          lineItem: [ { position: 406} ],
+          identification: [{position: 406 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Mode Of Transport'
+  @Consumption.valueHelpDefinition: [{
+      entity:{
+      element: 'Mot',
+      name:'ZR_MOT'
+      },
+
+         distinctValues: true,
+      useForValidation: true,
+      enabled: ''
+
+      }
+    ]
+  modeoftransport;
+  @EndUserText.label: 'Transporter Document Date'
+  @UI: {
+          lineItem: [ { position: 406} ],
+          identification: [{position: 406 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  transporterdocumentdate;
+  @UI: {
+          lineItem: [ { position: 406} ],
+          identification: [{position: 406 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Transporter Document Number'
+  transporterdocumentnumber;
+  @UI: {
+          lineItem: [ { position: 406} ],
+          identification: [{position: 406 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Vehicle Type'
+  @Consumption.valueHelpDefinition: [{
+      entity:{
+      element: 'Vehicletype',
+      name:'ZR_VEHTYPE'
+      },
+
+         distinctValues: true,
+      useForValidation: true,
+      enabled: ''
+
+      }
+    ]
+  @UI.hidden: true
+  vehicletype;
+  @UI: {
+           lineItem: [ { position: 406} ],
+           identification: [{position: 406 }],
+           fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Movement Status'
+  @UI.hidden: true
+  movementstatus;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Movement Place'
+  @UI.hidden: true
+  movementplace;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Movement Remarks'
+  @UI.hidden: true
+  movementremarks;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Movement Date'
+  @UI.hidden: true
+  movementdate;
+  @UI: {
+  lineItem: [ { position: 406} ],
+  identification: [{position: 406 }],
+  fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+
+  @EndUserText.label: 'Movement Time'
+  @UI.hidden: true
+  movementtime;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'From Place'
+  fromplace;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'From State'
+  @Consumption.valueHelpDefinition: [{
+      entity:{
+      element: 'Gststatecode',
+      name:'ZR_STATECODE'
+      },
+
+         distinctValues: true,
+      useForValidation: true,
+      enabled: ''
+
+      }
+    ]
+  fromstate;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Remaining Distance'
+  remainingdistance;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Extension Reason Code'
+  @Consumption.valueHelpDefinition: [{
+     entity:{
+     element: 'Code',
+     name:'ZR_EWAYCODE'
+     },
+
+        distinctValues: true,
+     useForValidation: true,
+     enabled: ''
+
+     }
+   ]
+  extnrsncode;
+  
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Extension Remarks'
+  extnremarks;
+  
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'From Pin Code'
+  frompincode;
+  
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Consignment Status'
+  consignmentstatus;
+  
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Transit Type'
+  transittype;
+  
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'New Vehicle Number'
+  newvehicleno;
+  
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'New Transporter Document Number'
+  newtranno;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'From Place ~ Multi Vehicle Update'
+  @UI.hidden: true
+  fromplacemultiveh;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'From State ~ Multi Vehicle Update'
+  @Consumption.valueHelpDefinition: [{
+      entity:{
+      element: 'Gststatecode',
+      name:'ZR_STATECODE'
+      },
+
+         distinctValues: true,
+      useForValidation: true,
+      enabled: ''
+
+      }
+    ]
+  @UI.hidden: true
+  fromstatemultiveh;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Reason Code ~ Vehicle/Update Movement'
+  @Consumption.valueHelpDefinition: [{
+    entity:{
+    element: 'Code',
+    name:'ZR_EWAYCODE'
+    },
+
+       distinctValues: true,
+    useForValidation: true,
+    enabled: ''
+
+    }
+  ]
+  @UI.hidden: true
+  reasoncodemultiveh;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Reason Remarks ~ Vehicle/Update Movement'
+  @UI.hidden: true
+  reasonremmultiveh;
+  @Consumption.valueHelpDefinition: [{
+      entity:{
+      element: 'Code',
+      name:'ZR_EWAYCANCEL'
+      },
+
+         distinctValues: true,
+      useForValidation: true,
+      enabled: ''
+
+      }
+    ]
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Reason Code ~ eWay Cancellation'
+  cancelrsncodeewb;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Reason Remarks ~ eWay Cancellation'
+  cancelremarksewb;
+  @Consumption.valueHelpDefinition: [{
+        entity:{
+        element: 'Code',
+        name:'ZR_IRNCANCEL'
+        },
+
+           distinctValues: true,
+        useForValidation: true,
+        enabled: ''
+
+        }
+      ]
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Reason Code ~ EInv Cancellation'
+  cnlrsneinv;
+  @UI: {
+         lineItem: [ { position: 406} ],
+         identification: [{position: 406 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 406,importance: #HIGH }]}
+  @EndUserText.label: 'Reason Remarks ~ Einv Cancellation'
+  cnlremarkseinv;
+  @UI: {
+           lineItem: [ { position: 407} ],
+           identification: [{position: 407 }],
+           fieldGroup: [{qualifier: 'GeneralData5',position: 407,importance: #HIGH }]}
+  @EndUserText.label: 'TO Place'
+  @UI.hidden: true
+  toplace;
+  @UI: {
+         lineItem: [ { position: 408} ],
+         identification: [{position: 408 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 408,importance: #HIGH }]}
+  @EndUserText.label: 'To State'
+  @Consumption.valueHelpDefinition: [{
+     entity:{
+     element: 'Gststatecode',
+     name:'ZR_STATECODE'
+     },
+
+        distinctValues: true,
+     useForValidation: true,
+     enabled: ''
+
+     }
+   ]
+  @UI.hidden: true
+  tostate;
+  @UI: {
+         lineItem: [ { position: 409} ],
+         identification: [{position: 409 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 409,importance: #HIGH }]}
+  @EndUserText.label: 'Total Qty'
+  @UI.hidden: true
+  totalquantity;
+
+  @Consumption.valueHelpDefinition: [{
+     entity:{
+     element: 'Gstuom',
+     name:'ZR_UOM'
+     },
+
+        distinctValues: true,
+     useForValidation: true,
+     enabled: ''
+
+     }
+   ]
+  @UI: {
+         lineItem: [ { position: 416} ],
+         identification: [{position: 416 }],
+         fieldGroup: [{qualifier: 'GeneralData5',position: 416,importance: #HIGH }]}
+  @EndUserText.label: 'Unit Code'
+  @UI.hidden: true
+  unitcode;
+
+  /* Associations */
+  //  _item;
+
+}

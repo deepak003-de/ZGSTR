@@ -1,0 +1,74 @@
+managed with additional save implementation in class ZBP_I_STATECODETMG_S unique;
+strict;
+with draft;
+define behavior for ZI_StateCodeTmg_S alias StateCodeTmgAll
+draft table ZDT_STATE_C_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( features : instance )
+   TransportRequestID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit with additional implementation;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _StateCodeTmg { create ( features : instance ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; }
+
+  side effects {
+    action SelectCustomizingTransptReq affects $self;
+  }
+  }
+
+define behavior for ZI_StateCodeTmg alias StateCodeTmg ##UNMAPPED_FIELD
+persistent table ZDT_STATE_CODE1
+draft table ZDT_STATE_COD_D
+lock dependent by _StateCodeTmgAll
+authorization dependent by _StateCodeTmgAll
+
+{
+  field ( readonly )
+   SingletonID,
+   Id;
+
+  field ( numbering : managed )
+   Id;
+
+  field ( notrigger )
+   SingletonID;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZDT_STATE_CODE1
+  {
+    Id = ID;
+    Sapstatecode = SAPSTATECODE;
+    Gststatecode = GSTSTATECODE;
+    Statename = STATENAME;
+  }
+
+  association _StateCodeTmgAll { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

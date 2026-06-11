@@ -1,0 +1,356 @@
+@Metadata.layer: #CUSTOMER
+
+@UI: {
+  presentationVariant: [{ sortOrder: [{ by: 'SlNo', direction:  #ASC }],
+                          visualizations: [{type: #AS_LINEITEM}],
+                          text: 'Item Details' }]
+     }
+
+@UI: { headerInfo: { title: { type: #STANDARD, label: 'Product', value: 'ProductName' } } }
+
+@UI.updateHidden: true
+
+annotate view ZC_EINVEWAY_FI with
+{
+
+  @UI.facet: [
+  {
+  id: 'GeneralI',
+  isSummary: true,
+  label: 'Item',
+  type: #COLLECTION,
+  purpose: #STANDARD
+  },
+
+  {
+  type: #FIELDGROUP_REFERENCE,
+  targetQualifier: 'GeneralData1',
+  parentId: 'GeneralI',
+  label: 'Basic',
+  id: 'GeneralData1'
+  },
+
+  {
+  type: #FIELDGROUP_REFERENCE,
+  targetQualifier: 'GeneralData2',
+  parentId: 'GeneralI',
+  label: 'Product',
+  id: 'GeneralData2'
+  },
+
+    {
+  type: #FIELDGROUP_REFERENCE,
+  targetQualifier: 'GeneralData3',
+  parentId: 'GeneralI',
+  label: 'Port Code',
+  id: 'GeneralData3'
+  },
+
+    {
+  type: #FIELDGROUP_REFERENCE,
+  targetQualifier: 'GeneralData4',
+  parentId: 'GeneralI',
+  label: 'Plant',
+  id: 'GeneralData4'
+  },
+
+    {
+  type: #FIELDGROUP_REFERENCE,
+  targetQualifier: 'GeneralData5',
+  parentId: 'GeneralI',
+  label: 'Value',
+  id: 'GeneralData5'
+  }
+                ]
+
+  @UI.hidden: true
+  BillingDocument;
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Basic
+  @UI: {
+          lineItem: [ { position: 10} ],
+          identification: [{position: 10 }],
+          fieldGroup: [{qualifier: 'GeneralData1',position: 10,importance: #HIGH }]
+  }
+  SlNo;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData1',position: 20,importance: #HIGH }]
+  }
+  BusinessPlace;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData1',position: 30,importance: #HIGH }]
+  }
+  CompanyCode;
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Product
+  @UI: {
+          lineItem: [ { position: 20} ],
+          identification: [{position: 20 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 10,importance: #HIGH }]
+  }
+  Product;
+
+  @UI: {
+          lineItem: [ { position: 30} ],
+          identification: [{position: 30 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 20,importance: #HIGH }]
+  }
+  ProductName;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData2',position: 30,importance: #HIGH }]
+  }
+  ConsumptionTaxCtrlCode;
+
+  @UI: {
+          lineItem: [ { position: 40} ],
+          identification: [{position: 40 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 40,importance: #HIGH }]
+  }
+  BillingQuantity;
+
+  @UI: {
+          lineItem: [ { position: 50} ],
+          identification: [{position: 50 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 50,importance: #HIGH }]
+  }
+  BillingQuantityUnit;
+
+  @UI: {
+          lineItem: [ { position: 60} ],
+          identification: [{position: 60 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 60,importance: #HIGH }]
+  }
+  TransactionCurrency;
+
+  @UI: {
+          lineItem: [ { position: 70} ],
+          identification: [{position: 70 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 70,importance: #HIGH }]
+  }
+  NetAmount;
+
+  @UI: {
+          lineItem: [ { position: 80} ],
+          identification: [{position: 80 }],
+          fieldGroup: [{qualifier: 'GeneralData2',position: 80,importance: #HIGH }]
+  }
+  TaxAmount;
+
+  @UI.hidden: true
+  Sapuom;
+
+  @UI.hidden: true
+  Gstuom;
+
+  @UI.hidden: true
+  Description;
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Port Code
+  @UI.hidden: true
+  Werks;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData3',position: 10,importance: #HIGH }]
+  }
+  Portcode;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData3',position: 20,importance: #HIGH }]
+  }
+  Portname;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData3',position: 30,importance: #HIGH }]
+  }
+  Distance;
+
+  @UI.hidden: true
+  Statecode;
+
+  @UI.hidden: true
+  Buyerpincode;
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Plant
+  @UI: {
+          lineItem: [ { position: 90} ],
+          identification: [{position: 90 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 10,importance: #HIGH }]
+  }
+  Plant;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData4',position: 20,importance: #HIGH }]
+  }
+  IN_GSTIdentificationNumber;
+
+  @UI: {
+          lineItem: [ { position: 100} ],
+          identification: [{position: 100 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 30,importance: #HIGH }]
+  }
+  PlantGSTIN;
+
+  @UI: {
+          lineItem: [ { position: 110} ],
+          identification: [{position: 110 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 40,importance: #HIGH }]
+  }
+  PlantLegalname;
+
+  @UI: {
+          lineItem: [ { position: 120} ],
+          identification: [{position: 120 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 50,importance: #HIGH }]
+  }
+  PlantAddress1;
+
+  @UI: {
+          lineItem: [ { position: 130} ],
+          identification: [{position: 130 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 60,importance: #HIGH }]
+  }
+  PlantAddress2;
+
+  @UI: {
+          lineItem: [ { position: 140} ],
+          identification: [{position: 140 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 70,importance: #HIGH }]
+  }
+  PlantCity;
+
+  @UI: {
+          lineItem: [ { position: 150} ],
+          identification: [{position: 150 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 80,importance: #HIGH }]
+  }
+  PlantPincode;
+
+  @UI: {
+          lineItem: [ { position: 160} ],
+          identification: [{position: 160 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 90,importance: #HIGH }]
+  }
+  PlantStatecode;
+
+  @UI: {
+          lineItem: [ { position: 170} ],
+          identification: [{position: 170 }],
+          fieldGroup: [{qualifier: 'GeneralData4',position: 100,importance: #HIGH }]
+  }
+  PlantStatecodedescription;
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////
+  //Value
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 10,importance: #HIGH }]
+  }
+  MaterialValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 20,importance: #HIGH }]
+  }
+  MaterialBaseValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 30,importance: #HIGH }]
+  }
+  DiscountValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 30,importance: #HIGH }]
+  }
+  RoundOffValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 40,importance: #HIGH }]
+  }
+  CessValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 50,importance: #HIGH }]
+  }
+  CessBaseValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 52,importance: #HIGH }]
+  }
+  TCSValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 53,importance: #HIGH }]
+  }
+  @UI.hidden: true
+  TCSBaseValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 60,importance: #HIGH }]
+  }
+  SGSTValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 70,importance: #HIGH }]
+  }
+  SGSTRate;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 80,importance: #HIGH }]
+  }
+  CGSTValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 90,importance: #HIGH }]
+  }
+  CGSTRate;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 100,importance: #HIGH }]
+  }
+  IGSTValue;
+
+  @UI: {
+          fieldGroup: [{qualifier: 'GeneralData5',position: 110,importance: #HIGH }]
+  }
+  IGSTRate;
+
+  @UI: {
+          lineItem: [ { position: 180} ],
+          identification: [{position: 180 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 120,importance: #HIGH }]
+  }
+  TotalGSTRate;
+
+  @UI: {
+          lineItem: [ { position: 190} ],
+          identification: [{position: 190 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 130,importance: #HIGH }]
+  }
+  TotalGSTValue;
+  @UI: {
+          lineItem: [ { position: 191} ],
+          identification: [{position: 191 }],
+          fieldGroup: [{qualifier: 'GeneralData5',position: 131,importance: #HIGH }]
+  }
+  LocalCurrency;
+
+  /* Associations */
+  //  _Head;
+
+}

@@ -1,0 +1,81 @@
+managed with additional save implementation in class ZBP_I_DTTMG_S unique;
+strict;
+with draft;
+define behavior for ZI_DtTmg_S alias DtTmgAll
+draft table ZDT_CCODEAD_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( features : instance )
+   TransportRequestID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit with additional implementation;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+  action ( features : instance ) SelectCustomizingTransptReq parameter D_SelectCustomizingTransptReqP result [1] $self;
+
+  association _DtTmg { create ( features : instance ); with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; }
+
+  side effects {
+    action SelectCustomizingTransptReq affects $self;
+  }
+  }
+
+define behavior for ZI_DtTmg alias DtTmg ##UNMAPPED_FIELD
+persistent table ZDT_CCODEADDRESS
+draft table ZDT_CCODEADDR_D
+lock dependent by _DtTmgAll
+authorization dependent by _DtTmgAll
+
+{
+  field ( mandatory : create )
+   Bukrs;
+
+  field ( readonly )
+   SingletonID;
+
+  field ( readonly : update )
+   Bukrs;
+
+  field ( notrigger )
+   SingletonID;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for ZDT_CCODEADDRESS
+  {
+    Bukrs = BUKRS;
+    Gstin = GSTIN;
+    Legalname = LEGALNAME;
+    Address1 = ADDRESS1;
+    Address2 = ADDRESS2;
+    City = CITY;
+    Pincode = PINCODE;
+    Statecode = STATECODE;
+    Statecodedescription = STATECODEDESCRIPTION;
+  }
+
+  association _DtTmgAll { with draft; }
+
+  validation ValidateTransportRequest on save ##NOT_ASSIGNED_TO_DETACT { create; update; delete; }
+}

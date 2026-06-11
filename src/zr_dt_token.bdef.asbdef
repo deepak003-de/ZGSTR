@@ -1,0 +1,44 @@
+managed implementation in class ZBP_R_DT_TOKEN unique;
+strict ( 2 );
+with draft;
+define behavior for ZR_DT_TOKEN alias ZrDtToken
+persistent table zdt_token
+draft table zdt_token_d
+etag master LocalLastChanged
+lock master total etag LastChanged
+authorization master ( global )
+
+{
+  field ( mandatory : create )
+  Tparameter;
+
+  field ( readonly )
+  LocalLastChanged,
+  LastChanged,
+  Createdby,
+  Lastchangedby;
+
+  field ( readonly : update )
+  Tparameter;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zdt_token
+    {
+      Tparameter       = tparameter;
+      Value            = value;
+      LocalLastChanged = local_last_changed;
+      LastChanged      = last_changed;
+      Createdby        = createdby;
+      Lastchangedby    = lastchangedby;
+    }
+}

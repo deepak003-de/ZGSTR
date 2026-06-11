@@ -1,0 +1,108 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'PortCode', 
+    typeNamePlural: 'PortCodes', 
+    title: {
+      type: #STANDARD, 
+      label: 'Port Code', 
+      value: 'Werks'
+    }
+  }
+}
+annotate view ZI_PortCode with
+{
+  @UI.hidden: true
+  ConfigDeprecationCode_Critlty;
+  
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'ZI_PortCode', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Port Code', 
+    position: 1 
+  } ]
+  Werks;
+  
+  @UI.identification: [ {
+    position: 2 
+  } ]
+  @UI.lineItem: [ {
+    position: 2 
+  } ]
+  Portcode;
+  
+  @UI.identification: [ {
+    position: 3 
+  } ]
+  @UI.lineItem: [ {
+    position: 3 
+  } ]
+  Statecode;
+  
+  @UI.identification: [ {
+    position: 4 , 
+    label: 'Portname'
+  } ]
+  @UI.lineItem: [ {
+    position: 4 , 
+    label: 'Portname'
+  } ]
+  Portname;
+  
+  @UI.identification: [ {
+    position: 5 , 
+    label: 'Distance'
+  } ]
+  @UI.lineItem: [ {
+    position: 5 , 
+    label: 'Distance'
+  } ]
+  Distance;
+  
+  @UI.identification: [ {
+    position: 6 , 
+    label: 'Buyerpincode'
+  } ]
+  @UI.lineItem: [ {
+    position: 6 , 
+    label: 'Buyerpincode'
+  } ]
+  Buyerpincode;
+  
+  @UI.identification: [ {
+    position: 7 , 
+    criticality: 'ConfigDeprecationCode_Critlty'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Deprecate', 
+    label: 'Deprecate'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Invalidate', 
+    label: 'Invalidate'
+  } ]
+  @UI.lineItem: [ {
+    position: 7 , 
+    criticality: 'ConfigDeprecationCode_Critlty'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Deprecate', 
+    label: 'Deprecate Selected Entry'
+  }, 
+  {
+    type: #FOR_ACTION, 
+    dataAction: 'Invalidate', 
+    label: 'Invalidate Selected Entry'
+  } ]
+  ConfigDeprecationCode;
+}

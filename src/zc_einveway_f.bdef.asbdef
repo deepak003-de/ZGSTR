@@ -1,0 +1,51 @@
+projection;
+strict;
+use draft;
+
+define behavior for ZC_EINVEWAY_F //alias <alias_name>
+{
+  //use create;
+  use update;
+  //use delete;
+
+
+
+  use action Edit;
+  use action Activate;
+  use action Resume;
+  use action Discard;
+  use action Prepare;
+
+  use action EWAY;
+  use action Einvoice;
+  use action CEINV;
+  use action CEWAY;
+  use action TRAEWAY;
+  use action DATEWAY;
+//
+//  use action CONSEWAY;
+//  use action MULTIVEHADD;
+//  use action MULTIVEHEWAY;
+  use action VEHEWAY;
+//
+//  use action MOVEUPD;
+
+  use association _item;// { create; }
+  use association _error;
+}
+
+define behavior for ZC_EINVEWAY_FI //alias <alias_name>
+{
+  use update;
+  //use delete;
+
+  use association _Head;
+}
+
+define behavior for ZC_ERRORLOG //alias <alias_name>
+{
+  //use update;
+  //use delete;
+
+  use association _Head;
+}

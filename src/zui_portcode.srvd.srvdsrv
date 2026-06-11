@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_PortCode_S'
+define service ZUI_PORTCODE {
+  expose ZI_PORTCODE_S as PortCodeAll;
+  expose ZI_PORTCODE as PortCode;
+}

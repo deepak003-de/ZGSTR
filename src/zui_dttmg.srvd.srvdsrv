@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_DtTmg_S'
+define service ZUI_DTTMG {
+  expose ZI_DTTMG_S as DtTmgAll;
+  expose ZI_DTTMG as DtTmg;
+}

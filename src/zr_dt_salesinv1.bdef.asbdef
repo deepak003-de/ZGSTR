@@ -1,0 +1,47 @@
+managed implementation in class ZBP_R_DT_SALESINV1 unique;
+strict ( 2 );
+with draft;
+define behavior for ZR_DT_SALESINV1 alias ZrDtSalesinv1
+persistent table ZDT_SALESINV1
+draft table ZDT_SALESINV1_D
+etag master Lastchanges
+lock master total etag Lastchanges
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   Fkart,
+   Billtype,
+   Kschl;
+
+  field ( readonly )
+   Lastchanges,
+   Changeuser,
+   Createdby;
+
+  field ( readonly : update )
+   Fkart,
+   Billtype,
+   Kschl;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZDT_SALESINV1
+  {
+    Fkart = fkart;
+    Billtype = billtype;
+    Kschl = kschl;
+    Lastchanges = lastchanges;
+    Changeuser = changeuser;
+    Createdby = createdby;
+  }
+}

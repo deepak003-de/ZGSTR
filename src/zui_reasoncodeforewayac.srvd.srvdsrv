@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_ReasonCodeForEwayAc_S'
+define service ZUI_REASONCODEFOREWAYAC {
+  expose ZI_REASONCODEFOREWAYAC_S as ReasonCodeForEwaAll;
+  expose ZI_REASONCODEFOREWAYAC as ReasonCodeForEwayAc;
+}

@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service Definition'
+define service ZSERV_D_EINVEWAY {
+  expose ZC_EINVEWAY_F;
+  expose ZC_EINVEWAY_FI;
+  expose ZC_ERRORLOG;
+}
